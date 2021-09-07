@@ -22,7 +22,7 @@ public class 로또6603_ver2 {
 			
 			// 입력
 			input = new int[N];
-			numbers = new int[N];
+			numbers = new int[6];
 			for(int i = 0; i < N; i++) {
 				input[i] = Integer.parseInt(st.nextToken());
 			}
@@ -38,7 +38,7 @@ public class 로또6603_ver2 {
 	private static void permutation(int start, int cnt) {
 		// cnt가 6이면 6자리 수를 선택한 것. 그대로 출력한다.
 		if(cnt == 6) {
-			for(int i = 0; i < N; i++) {
+			for(int i = 0; i < 6; i++) {
 				sb.append(numbers[i] + " ");
 			}
 			sb.append("\n");
@@ -50,7 +50,7 @@ public class 로또6603_ver2 {
 			// 숫자를 선택! numbers는 계속 덧씌워지므로
 			// 따로 선택 해제할 필요가 없다.
 			numbers[cnt] = input[i];
-			permutation(i, cnt + 1);
+			permutation(i + 1, cnt + 1);
 		}
 	}
 
