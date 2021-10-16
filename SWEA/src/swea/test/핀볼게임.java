@@ -113,8 +113,8 @@ public class 핀볼게임 {
 			else if(6 <= map[nr][nc] && map[nr][nc] <= 10) {
 				int num = map[nr][nc] - 6;
 				for(int i = 0; i < 2; i++) {
-					if(holes[num].get(i).r == nr
-					|| holes[num].get(i).c == nc) {
+					if(holes[num].get(i).r != nr
+					|| holes[num].get(i).c != nc) {
 						nr = holes[num].get(i).r;
 						nc = holes[num].get(i).c;
 						break;
