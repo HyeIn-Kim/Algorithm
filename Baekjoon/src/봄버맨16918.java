@@ -1,25 +1,14 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.LinkedList;
-import java.util.Queue;
 import java.util.StringTokenizer;
 
+// 시뮬레이션으로 하다가
+// 폭탄을 한꺼번에 터트리는 게 안되길래 갈아엎고 BFS로 접근했었는데 (3번쯤 갈아엎음)
+// 이번 턴에 터지는 폭탄이 아닌 것들만 지워주면 됐었다... ㅠㅠ
 public class 봄버맨16918 {
-    static class Bomb {
-        int r;
-        int c;
-
-        public Bomb(int r, int c) {
-            this.r = r;
-            this.c = c;
-        }
-    }
-
     static int R, C, N;
-    static char[][] map;
-    static int[][] time;
-    static Queue<Bomb> queue;
+    static int[][] map;
     static int[] dr = {-1, 0, 1, 0};
     static int[] dc = {0, -1, 0, 1};
 
@@ -29,14 +18,11 @@ public class 봄버맨16918 {
         R = Integer.parseInt(st.nextToken());
         C = Integer.parseInt(st.nextToken());
         N = Integer.parseInt(st.nextToken());
-        map = new char[R][C];
-        time = new int[R][C];
-        queue = new LinkedList<>();
+        map = new int[R][C];
         for(int i = 0; i < R; i++) {
             char[] input = br.readLine().toCharArray();
             for(int j = 0; j < C; j++) {
-                map[i][j] = input[j];
-                time[i][j] = map[i][j] == '.' ? 0 : 3;
+                map[i][j] = input[j] == 'O' ? 3 : 0;
             }
         }
 
@@ -48,7 +34,7 @@ public class 봄버맨16918 {
         StringBuilder sb = new StringBuilder();
         for(int i = 0; i < R; i++) {
             for(int j = 0; j < C; j++) {
-                sb.append(map[i][j]);
+                sb.append(map[i][j] == 0 ? '.' : 'O');
             }
             sb.append("\n");
         }
@@ -56,35 +42,28 @@ public class 봄버맨16918 {
         System.out.println(sb);
     }
 
-    private static void addBombs(int t) {
+    private static void addBombs(int time) {
         for(int i = 0; i < R; i++) {
             for(int j = 0; j < C; j++) {
-                if(map[i][j] == '.') {
-                    map[i][j] = 'O';
-                    time[i][j] = t + 3;
+                if(map[i][j] == 0) {
+                    map[i][j] = time + 3;
                 }
             }
         }
     }
 
-    private static void explosion(int t) {
+    private static void explosion(int time) {
         for(int i = 0; i < R; i++) {
             for(int j = 0; j < C; j++) {
-                if(time[i][j] == t) queue.offer(new Bomb(i, j));
-            }
-        }
-
-        while(!queue.isEmpty()) {
-            Bomb b = queue.poll();
-            map[b.r][b.c] = '.';
-            time[b.r][b.c] = 0;
-            for(int d = 0; d < 4; d++) {
-                int nr = b.r + dr[d];
-                int nc = b.c + dc[d];
-                if(nr < 0 || nc < 0 || nr >= R || nc >= C) continue;
-                if(map[nr][nc] == '.') continue;
-                map[nr][nc] = '.';
-                time[nr][nc] = 0;
+                if(map[i][j] == time) {
+                    map[i][j] = 0;
+                    for(int d = 0; d < 4; d++) {
+                        int nr = i + dr[d];
+                        int nc = j + dc[d];
+                        if(nr < 0 || nc < 0 || nr >= R || nc >= C) continue;
+                        if(map[nr][nc] != time) map[nr][nc] = 0;
+                    }
+                }
             }
         }
     }
