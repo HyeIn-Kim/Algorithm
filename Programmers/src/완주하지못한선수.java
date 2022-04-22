@@ -1,6 +1,6 @@
 import java.util.*;
 
-class Solution {
+class 완주하지못한선수 {
     public String solution(String[] participant, String[] completion) {
         HashMap<String, Integer> map = new HashMap<>();
         for(String p : participant) {

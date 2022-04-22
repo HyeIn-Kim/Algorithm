@@ -26,7 +26,7 @@ class Genre {
     }
 }
 
-class Solution {
+class 베스트앨범 {
     public int[] solution(String[] genres, int[] plays) {      
         Map<String, Genre> map = new HashMap<>();
         int size = genres.length;

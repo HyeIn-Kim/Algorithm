@@ -8,7 +8,7 @@ import java.util.HashMap;
 // -1을 하는 이유: 모자도 안쓰고 x 눈장식도 안하는 경우를 제외하기 위함 (문제에서 적어도 1개는 입어야 된다고 했으므로)
 // 각 종류마다 hashmap에 모아서 계산했고, 처음에는 <String, ArrayList> 형으로 저장할 뻔 했는데
 // 잘 생각해보니 옷 이름은 필요 없고 개수만 필요한거라 <String 옷 종류, Integer 옷 개수> 이렇게 만들었다.
-class Solution {
+class 위장 {
     public int solution(String[][] clothes) {
         HashMap<String, Integer> map = new HashMap<>();
         for(int i = 0; i < clothes.length; i++) {

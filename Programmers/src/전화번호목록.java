@@ -3,7 +3,7 @@ import java.util.*;
 // IDE 안 쓰니까 너무 어렵다...!!
 // Value 값이 따로 필요 없어서 HashSet을 사용했는데,
 // HashMap이 HashSet보다 더 빠르다고 한다.
-class Solution {
+class 전화번호목록 {
     public boolean solution(String[] phone_book) {
         HashSet<String> set = new HashSet<>();
         for(String phone : phone_book) set.add(phone);

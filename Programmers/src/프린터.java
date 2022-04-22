@@ -13,7 +13,7 @@ class Document {
     }
 }
 
-class Solution {
+class 프린터 {
     public int solution(int[] priorities, int location) {
     	// 큐에 문서들을 담음
         Queue<Document> queue = new LinkedList<>();
