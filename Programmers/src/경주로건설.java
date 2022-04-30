@@ -37,7 +37,6 @@ public class 경주로건설 {
 
         int answer = Integer.MAX_VALUE;
         for(int i = 0; i < 4; i++) {
-            if(visited[R-1][C-1][i] == 0) continue;
             int cost = visited[R-1][C-1][i];
             answer = Math.min(answer, cost);
         }
@@ -60,6 +59,10 @@ public class 경주로건설 {
         while(!queue.isEmpty()) {
             Node n = queue.poll();
 
+            if(n.r == R-1 && n.c == C-1) {
+                continue;
+            }
+
             for(int d = 0; d < 4; d++) {
                 int nr = n.r + dr[d];
                 int nc = n.c + dc[d];
@@ -68,7 +71,7 @@ public class 경주로건설 {
                 // 벽인 곳은 갈 수 없음
                 if(board[nr][nc] == 1) continue;
 
-                int nextCost = n.cost + 100;
+                int nextCost = visited[n.r][n.c][n.d] + 100;
                 if(n.d != d) nextCost += 500;
 
                 if(nextCost <= visited[nr][nc][d]) {
@@ -77,15 +80,5 @@ public class 경주로건설 {
                 }
             }
         }
-    }
-
-    public static void main(String[] args) {
-//        int[][] input = {{0,0,0},{0,0,0},{0,0,0}};
-//        int[][] input = {{0,0,0,0,0,0,0,1},{0,0,0,0,0,0,0,0},{0,0,0,0,0,1,0,0},{0,0,0,0,1,0,0,0},
-//                {0,0,0,1,0,0,0,1},{0,0,1,0,0,0,1,0},{0,1,0,0,0,1,0,0},{1,0,0,0,0,0,0,0}};
-//        int[][] input = {{0,0,1,0},{0,0,0,0},{0,1,0,1},{1,0,0,0}};
-//        int[][] input = {{0,0,0,0,0,0},{0,1,1,1,1,0},{0,0,1,0,0,0},{1,0,0,1,0,1},{0,1,0,0,0,1},{0,0,0,0,0,0}};
-        int[][] input = {{0, 0, 0, 0, 0}, {0, 1, 1, 1, 0}, {0, 0, 1, 0, 0}, {1, 0, 0, 0, 1}, {0, 1, 1, 0, 0}};
-        System.out.println(solution(input));
     }
 }
