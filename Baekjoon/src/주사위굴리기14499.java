@@ -62,7 +62,7 @@ public class 주사위굴리기14499 {
             // 3. 주사위 굴림
             rollDice(command[i]);
 
-            System.out.println(Arrays.toString(dice) + " " + west + " " + east);
+//            System.out.println(Arrays.toString(dice) + " " + west + " " + east);
 
             // 4. 주사위 top을 출력
             sb.append(dice[top]).append("\n");
@@ -86,21 +86,21 @@ public class 주사위굴리기14499 {
     private static void rollDice(int direction) {
         switch(direction) {
             case 1: {
-                int temp = dice[1];
-                dice[1] = west;
-                west = dice[3];
-                dice[3] = east;
+                int bottom = (top + 2) % 4;
+                int temp = dice[top];
+                dice[top] = west;
+                west = dice[bottom];
+                dice[bottom] = east;
                 east = temp;
-                top = 1;
                 break;
             }
             case 2: {
-                int temp = dice[1];
-                dice[1] = east;
-                east = dice[3];
-                dice[3] = west;
+                int bottom = (top + 2) % 4;
+                int temp = dice[top];
+                dice[top] = east;
+                east = dice[bottom];
+                dice[bottom] = west;
                 west = temp;
-                top = 1;
                 break;
             }
             case 3: top = (top + 1) % 4; break;
