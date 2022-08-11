@@ -11,7 +11,7 @@ class Work {
     }
 }
 
-class Solution {
+class 기능개발 {
     public int[] solution(int[] progresses, int[] speeds) {
     	// Queue에 일을 순차적으로 담아준다.
         Queue<Work> queue = new LinkedList<>();
