@@ -85,3 +85,30 @@ int main() {
 }
 
 
+// 소수점 출력하기
+#include <iostream>
+using namespace std;
+
+int main() {
+    int weight = 13;
+    double gravity = 0.165;
+
+    // fixed = 소수점을 고정하겠다
+    cout << fixed;
+    cout.precision(6);
+    cout << weight << " * " << gravity << " = " << weight * gravity;
+    return 0;
+}
+
+// 반올림하기
+#include <iostream>
+using namespace std;
+
+int main() {
+    double a = 25.352;
+    cout << fixed;
+    // precision 안의 자릿수만큼 반올림하여 출력
+    cout.precision(1);
+    cout << a;
+    return 0;
+}
