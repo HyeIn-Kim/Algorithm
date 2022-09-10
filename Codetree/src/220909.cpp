@@ -81,3 +81,70 @@ int main() {
     cout << a + 2;
     return 0;
 }
+
+#include <iostream>
+using namespace std;
+
+int main() {
+    int n;
+    cin >> n;
+    cout << "Your score is " << n << " point.";
+    return 0;
+}
+
+#include <iostream>
+using namespace std;
+
+int main() {
+    int a;
+    cin >> a;
+    cout << a * 2;
+    return 0;
+}
+
+#include <iostream>
+using namespace std;
+
+int main() {
+    int a;
+    cin >> a;
+    cout << a * 2 + 3;
+    return 0;
+}
+
+#include <iostream>
+using namespace std;
+
+int main() {
+    double n;
+    cin >> n;
+    cout << fixed;
+    cout.precision(2);
+    cout << n;
+    return 0;
+}
+
+#include <iostream>
+using namespace std;
+
+int main() {
+    double n;
+    cin >> n;
+    cout << fixed;
+    cout.precision(1);
+    cout << n * 30.48;
+    return 0;
+}
+
+#include <iostream>
+using namespace std;
+
+int main() {
+    double a;
+    cin >> a;
+    cout << fixed;
+    cout.precision(2);
+    cout << a + 1.5;
+    return 0;
+}
+
