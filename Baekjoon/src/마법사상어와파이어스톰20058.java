@@ -50,24 +50,21 @@ public class 마법사상어와파이어스톰20058 {
     }
 
     private static void firestorm(int L) {
+        int[][] temp = new int[size][size];
+
         for(int r = 0; r < size; r += L) {
             for(int c = 0; c < size; c += L) {
-                rotate(r, c, L);
+                rotate(r, c, L, temp);
             }
         }
+
+        map = temp;
     }
 
-    private static void rotate(int startR, int startC, int L) {
-        int[][] temp = new int[L][L];
+    private static void rotate(int startR, int startC, int L, int[][] temp) {
         for(int r = 0; r < L; r++) {
             for(int c = 0; c < L; c++) {
-                temp[r][c] = map[(startR + L) -  c - 1][startC + r];
-            }
-        }
-
-        for(int r = 0; r < L; r++) {
-            for(int c = 0; c < L; c++) {
-                map[startR + r][startC + c] = temp[r][c];
+                temp[startR + c][startC + L - r - 1] = map[startR + r][startC + c];
             }
         }
     }
