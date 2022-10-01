@@ -4,6 +4,10 @@ import java.io.InputStreamReader;
 import java.util.PriorityQueue;
 import java.util.StringTokenizer;
 
+// 진짜 너무 힘들었다..
+// 처음에 풀었을때 PQ에 r, c 바꿔서 써가지고 틀린거 같은데
+// 다른데서 틀린줄알고 고치다가 원래 되던 테케도 틀려서 엄청 헤맴
+// 빈칸을 만나면 제초제 뿌리고 스탑! 을 구현하는게 어려웠던 문제였다.
 public class 나무박멸 {
     static class Node {
         int killedTrees;
@@ -45,23 +49,15 @@ public class 나무박멸 {
             // 1. 나무 성장
             grow();
             // 2. 나무 번식
+            if(m == 1) {
+                int a = 10;
+            }
             spread();
             // 3. 제초제 분사
             kill(m);
         }
 
         System.out.println(answer);
-    }
-
-    private static void print() {
-        for(int i = 0; i < N; i++) {
-            for(int j = 0; j < N; j++) {
-                System.out.print(map[i][j] + " ");
-            }
-            System.out.println();
-        }
-        System.out.println("Answer: " + answer);
-        System.out.println();
     }
 
     private static void grow() {
@@ -110,9 +106,6 @@ public class 나무박멸 {
                     int nr = i + dr[d];
                     int nc = j + dc[d];
                     if (nr < 0 || nc < 0 || nr >= N || nc >= N) continue;
-                    if(i == 4 && j == 0) {
-                        int a = 10;
-                    }
                     if(map[nr][nc] == 0 && herbicide[nr][nc] == 0) next[nr][nc] += tree;
                 }
             }
@@ -129,17 +122,16 @@ public class 나무박멸 {
         // PQ에 해당 칸에서 죽일 수 있는 최대 나무 개수와 위치를 저장해서 바로 꺼낼 수 있게끔 함
         PriorityQueue<Node> pq = new PriorityQueue<>((o1, o2) -> {
             if(o1.killedTrees == o2.killedTrees) {
-                if(o1.c == o2.c) return o1.r - o2.r;
-                else return o1.c - o2.c;
+                if(o1.r == o2.r) return o1.c - o2.c;
+                else return o1.r - o2.r;
             }
             else return o2.killedTrees - o1.killedTrees;
         });
 
         for(int i = 0; i < N; i++) {
             for(int j = 0; j < N; j++) {
-                if(map[i][j] > 0) {
-                    pq.offer(new Node(getKilledTrees(i, j), i, j));
-                }
+                if(map[i][j] <= 0) continue;
+                pq.offer(new Node(getKilledTrees(i, j), i, j));
             }
         }
 
@@ -152,6 +144,7 @@ public class 나무박멸 {
 
     private static int getKilledTrees(int r, int c) {
         int cnt = map[r][c];
+
         for(int d = 4; d < 8; d++) {
             for(int k = 1; k <= K; k++) {
                 int nr = r + dr[d] * k;
@@ -166,6 +159,7 @@ public class 나무박멸 {
     }
 
     private static void useHerbicide(int r, int c, int m) {
+        if(map[r][c] <= 0) return;
         map[r][c] = 0;
         herbicide[r][c] = m + C;
 
@@ -175,8 +169,9 @@ public class 나무박멸 {
                 int nc = c + dc[d] * k;
                 if (nr < 0 || nc < 0 || nr >= N || nc >= N) continue;
                 if(map[nr][nc] < 0) break;
-                map[nr][nc] = 0;
                 herbicide[nr][nc] = m + C;
+                if(map[nr][nc] == 0) break;
+                map[nr][nc] = 0;
             }
         }
     }
