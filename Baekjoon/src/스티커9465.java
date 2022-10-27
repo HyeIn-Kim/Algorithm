@@ -8,8 +8,6 @@ public class 스티커9465 {
     static int N;
     static int[][] stickers;
     static int[][] DP;
-    static int[] dr = {-1, 1};
-    static int[] dc = {-1, -1};
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -18,31 +16,24 @@ public class 스티커9465 {
         int T = Integer.parseInt(br.readLine());
         for(int testCase = 1; testCase <= T; testCase++) {
             N = Integer.parseInt(br.readLine());
-            stickers = new int[2][N];
-            DP = new int[2][N];
+            stickers = new int[2][N+1];
+            DP = new int[2][N+1];
             for(int i = 0; i < 2; i++) {
                 st = new StringTokenizer(br.readLine());
-                for(int j = 0; j < N; j++) {
+                for(int j = 1; j <= N; j++) {
                     stickers[i][j] = Integer.parseInt(st.nextToken());
                 }
             }
 
-            DP[0][0] = stickers[0][0];
-            DP[1][0] = stickers[1][0];
-            for(int i = 1; i < N; i++) {
-                for(int j = 0; j < 2; j++) {
-                    for(int d = 0; d < 2; d++) {
-                        int nr = j + dr[d];
-                        int nc = i + dc[d];
-                        if(nr < 0 || nc < 0 || nr >= 2 || nc >= N) continue;
-                        DP[j][i] = DP[nr][nc] + stickers[j][i];
-                    }
-                }
+            DP[0][1] = stickers[0][1];
+            DP[1][1] = stickers[1][1];
+
+            for(int i = 2; i <= N; i++) {
+                DP[0][i] = Math.max(DP[1][i - 1], DP[1][i - 2]) + stickers[0][i];
+                DP[1][i] = Math.max(DP[0][i - 1], DP[0][i - 2]) + stickers[1][i];
             }
 
-            System.out.println(Arrays.toString(DP[0]));
-            System.out.println(Arrays.toString(DP[1]));
-            sb.append(DP[0][N-1] > DP[1][N-1] ? DP[0][N-1] : DP[1][N-1]).append("\n");
+            sb.append(Math.max(DP[0][N], DP[1][N])).append("\n");
         }
 
         System.out.println(sb);
